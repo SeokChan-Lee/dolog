@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-const pretendard = localFont({
-  src: "../assets/fonts/PretendardVariable.woff2",
-  variable: "--font-pretendard",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,12 +8,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ko">
-      <body className={`${pretendard.variable} antialiased`}>{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
