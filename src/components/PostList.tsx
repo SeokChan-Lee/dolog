@@ -1,4 +1,4 @@
-import { getDatabase } from "@/lib/notion"; // 실제 경로에 맞게 수정
+import { getDatabase } from "@/lib/notion";
 
 export default async function PostList() {
   const response = await getDatabase();
