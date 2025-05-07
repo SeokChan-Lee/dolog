@@ -139,9 +139,10 @@ export function NotionRenderer({ blocks }: Props) {
             className="table-auto w-full my-6 border border-gray-300"
           >
             <tbody>
-              {tableBlock.children?.map((rowBlock, rowIndex) => {
-                if (!("type" in rowBlock) || rowBlock.type !== "table_row")
+              {tableBlock.children?.map((rowBlock) => {
+                if (!isFullBlock(rowBlock) || rowBlock.type !== "table_row")
                   return null;
+
                 return (
                   <tr key={rowBlock.id} className="border-t border-gray-300">
                     {rowBlock.table_row.cells.map((cell, cellIndex) => (
