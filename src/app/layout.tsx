@@ -13,7 +13,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link rel="icon" href="/assets/favicon/favicon.ico" />
+        <link rel="icon" href="/favicon/favicon.ico" />
       </head>
       <body className="antialiased min-h-screen">
         <Gnb />
