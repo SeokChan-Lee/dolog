@@ -48,8 +48,8 @@ export default async function Page({
 
   return (
     <main className="max-w-3xl mx-auto py-25">
-      <h1 className="text-4xl font-bold mb-6">{pageData.title}</h1>
-      <p className="text-sm text-gray-500 mb-6">{formatDate(pageData.date)}</p>
+      <h1 className="text-4xl font-bold mb-1">{pageData.title}</h1>
+      <p className="text-md text-gray-500 mb-10">{formatDate(pageData.date)}</p>
       <NotionRenderer blocks={pageData.blocks} />
     </main>
   );
