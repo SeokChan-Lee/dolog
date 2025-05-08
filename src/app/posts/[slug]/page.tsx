@@ -5,6 +5,8 @@ import { NotionRenderer } from "@/components/NotionRenderer";
 import { formatDate } from "@/utils/formatDate";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const response = await getDatabase();
   const pages = response.results.filter(
@@ -25,10 +27,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const content = await getPageContentBySlug(slug);
+  const content = await getPageContentBySlug(params.slug);
   if (!content) return {};
   return {
     title: content.title,
@@ -36,20 +37,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const pageData = await getPageContentBySlug(slug);
-
+export default async function Page({ params }: { params: { slug: string } }) {
+  const pageData = await getPageContentBySlug(params.slug);
   if (!pageData) return notFound();
 
   return (
-    <main className="max-w-3xl mx-auto py-30">
-      <h1 className="text-4xl font-bold mb-1">{pageData.title}</h1>
-      <p className="text-md text-gray-500 mb-10">{formatDate(pageData.date)}</p>
+    <main className="max-w-3xl mx-auto px-4 py-10">
+      <h1 className="text-4xl font-bold mb-6">{pageData.title}</h1>
+      <p className="text-sm text-gray-500 mb-6">
+        {formatDate(pageData.date)} · by {pageData.author}
+      </p>
       <NotionRenderer blocks={pageData.blocks} />
     </main>
   );
