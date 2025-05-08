@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Gnb from "@/components/Gnb";
 
 export const metadata: Metadata = {
   title: "Dolog",
@@ -14,7 +15,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/assets/favicon/favicon.ico" />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased min-h-screen">
+        <Gnb />
+        {children}
+      </body>
     </html>
   );
 }
