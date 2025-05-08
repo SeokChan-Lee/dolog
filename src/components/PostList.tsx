@@ -42,14 +42,14 @@ export default async function PostList() {
           <Link
             href={`/posts/${slug}`}
             key={page.id}
-            className="block rounded overflow-hidden mx-5 sm:mx-0"
+            className="block rounded overflow-hidden mx-5 sm:mx-0 "
           >
             <Image
               src={coverImage}
               alt={title}
               width={600}
               height={300}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover transition-transform duration-200 hover:scale-105"
             />
             <div className="p-4">
               <h2 className="text-xl font-semibold">{title}</h2>
