@@ -11,12 +11,12 @@
 :root {
   --font-sans: "Pretendard", sans-serif;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #121212;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #121212;
     --foreground: #ededed;
   }
 }
