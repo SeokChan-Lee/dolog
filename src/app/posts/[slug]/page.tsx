@@ -47,7 +47,7 @@ export default async function Page({
   if (!pageData) return notFound();
 
   return (
-    <main className="max-w-3xl mx-auto py-25">
+    <main className="max-w-3xl mx-auto py-30">
       <h1 className="text-4xl font-bold mb-1">{pageData.title}</h1>
       <p className="text-md text-gray-500 mb-10">{formatDate(pageData.date)}</p>
       <NotionRenderer blocks={pageData.blocks} />
