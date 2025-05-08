@@ -1,6 +1,8 @@
 import { getDatabase } from "@/lib/notion";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import Link from "next/link";
+import Image from "next/image";
+import { formatDate } from "@/utils/formatDate";
 
 export default async function PostList() {
   const response = await getDatabase();
@@ -10,10 +12,12 @@ export default async function PostList() {
   );
 
   return (
-    <ul className="space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {pages.map((page) => {
         const titleProp = page.properties?.Title;
         const slugProp = page.properties?.Slug;
+        const coverProp = page.cover;
+        const dateProp = page.properties?.Date;
 
         const title =
           titleProp?.type === "title" && titleProp.title.length > 0
@@ -25,14 +29,37 @@ export default async function PostList() {
             ? slugProp.rich_text[0].plain_text
             : "";
 
+        const date = dateProp?.type === "date" ? dateProp.date?.start : "";
+
+        const coverImage =
+          coverProp?.type === "external"
+            ? coverProp.external.url
+            : coverProp?.type === "file"
+              ? coverProp.file.url
+              : "/assets/default_img/default_img.png";
+
         return (
-          <li key={page.id} className="border-b pb-2">
-            <Link href={`/posts/${slug}`} className=" hover:underline">
-              {title}
-            </Link>
-          </li>
+          <Link
+            href={`/posts/${slug}`}
+            key={page.id}
+            className="block rounded overflow-hidden mx-5 sm:mx-0"
+          >
+            <Image
+              src={coverImage}
+              alt={title}
+              width={600}
+              height={300}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-4">
+              <h2 className="text-xl font-semibold">{title}</h2>
+              <p className="text-sm text-gray-500 mb-6">
+                {date ? formatDate(date) : ""}
+              </p>
+            </div>
+          </Link>
         );
       })}
-    </ul>
+    </div>
   );
 }
