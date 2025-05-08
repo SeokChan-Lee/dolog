@@ -1,19 +1,18 @@
-import { getDatabase } from "@/lib/notion";
-import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@/utils/formatDate";
+import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-export default async function PostList() {
-  const response = await getDatabase();
+interface Props {
+  posts: PageObjectResponse[];
+}
 
-  const pages = response.results.filter(
-    (page): page is PageObjectResponse => "properties" in page
-  );
-
+export function SearchGrid({ posts }: Props) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {pages.map((page) => {
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+      {posts.map((page) => {
         const titleProp = page.properties?.Title;
         const slugProp = page.properties?.Slug;
         const coverProp = page.cover;

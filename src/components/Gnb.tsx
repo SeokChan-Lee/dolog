@@ -21,7 +21,11 @@ export default function Gnb() {
             />
           </div>
         </Link>
-        <h1 className="font-bold">검색</h1>
+        <Link href="/search">
+          <h1 className="text-xl font-bold hover:text-blue-200 transition-transform duration-200 hover:scale-105">
+            검색
+          </h1>
+        </Link>
       </div>
     </div>
   );
