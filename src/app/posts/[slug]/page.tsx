@@ -5,6 +5,8 @@ import { NotionRenderer } from "@/components/NotionRenderer";
 import { formatDate } from "@/utils/formatDate";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const response = await getDatabase();
   const pages = response.results.filter(
