@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import CategoryList from "./CategoryList";
 
 export default function Gnb() {
   return (
-    <div className="fixed backdrop-blur-md w-full p-3 ">
+    <div className="fixed backdrop-blur-md w-full p-3 z-10">
       <div className="flex justify-between max-w-3xl mx-auto items-center">
         <Link href="/">
           <div className="flex items-center gap-3">
@@ -26,6 +27,9 @@ export default function Gnb() {
             검색
           </h1>
         </Link>
+      </div>
+      <div className="max-w-3xl mx-auto mt-3">
+        <CategoryList />
       </div>
     </div>
   );
