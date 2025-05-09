@@ -28,7 +28,7 @@ export default function SearchClient({ posts }: Props) {
   }, [keyword, posts]);
 
   return (
-    <div className="max-w-3xl mx-auto py-30 ">
+    <div className="max-w-3xl mx-auto py-40 ">
       <h1 className="text-4xl font-bold mb-3 mx-5 sm:mx-0">Search Post</h1>
       <SearchInput keyword={keyword} setKeyword={setKeyword} />
       {filtered.length > 0 ? (
