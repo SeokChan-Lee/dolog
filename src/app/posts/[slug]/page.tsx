@@ -5,8 +5,6 @@ import { NotionRenderer } from "@/components/NotionRenderer";
 import { formatDate } from "@/utils/formatDate";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-export const revalidate = 60;
-
 export async function generateStaticParams() {
   const response = await getDatabase();
   const pages = response.results.filter(
@@ -49,7 +47,7 @@ export default async function Page({
   if (!pageData) return notFound();
 
   return (
-    <main className="max-w-3xl mx-auto py-30">
+    <main className="max-w-3xl mx-auto py-40">
       <h1 className="text-4xl font-bold mb-1">{pageData.title}</h1>
       <p className="text-md text-gray-500 mb-10">{formatDate(pageData.date)}</p>
       <NotionRenderer blocks={pageData.blocks} />
