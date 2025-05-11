@@ -10,11 +10,17 @@ export async function getAllTags(): Promise<string[]> {
   );
 
   const tagSet = new Set<string>();
+  let hasUntagged = false;
   for (const page of pages) {
     const tagProp = page.properties?.Tags;
-    if (tagProp?.type === "multi_select") {
+    if (tagProp?.type === "multi_select" && tagProp.multi_select.length > 0) {
       tagProp.multi_select.forEach((tag) => tagSet.add(tag.name));
+    } else {
+      hasUntagged = true;
     }
+  }
+  if (hasUntagged) {
+    tagSet.add("ETC");
   }
 
   return Array.from(tagSet);
