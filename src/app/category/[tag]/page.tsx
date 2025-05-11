@@ -16,14 +16,20 @@ export async function generateStaticParams(): Promise<{ tag: string }[]> {
   );
 
   const tagSet = new Set<string>();
+  let hasUntagged = false;
   pages.forEach((page) => {
     const tagProp = page.properties["Tags"];
-    if (tagProp.type === "multi_select") {
+    if (tagProp.type === "multi_select" && tagProp.multi_select.length > 0) {
       tagProp.multi_select.forEach((t) => {
         if (t.name) tagSet.add(t.name);
       });
+    } else {
+      hasUntagged = true;
     }
   });
+  if (hasUntagged) {
+    tagSet.add("ETC");
+  }
 
   return Array.from(tagSet).map((tag) => ({ tag }));
 }
@@ -43,17 +49,27 @@ export default async function CategoryPage({ params }: Params) {
       page.object === "page" && "properties" in page
   );
 
-  const filtered = pages.filter((page) => {
-    const tagProp = page.properties["Tags"];
-    return (
-      tagProp.type === "multi_select" &&
-      tagProp.multi_select.some(
-        (tagItem) =>
-          typeof tagItem.name === "string" &&
-          tagItem.name.toLowerCase() === tag.toLowerCase()
-      )
-    );
-  });
+  let filtered;
+  if (tag.toLowerCase() === "etc") {
+    filtered = pages.filter((page) => {
+      const tagProp = page.properties["Tags"];
+      return !(
+        tagProp.type === "multi_select" && tagProp.multi_select.length > 0
+      );
+    });
+  } else {
+    filtered = pages.filter((page) => {
+      const tagProp = page.properties["Tags"];
+      return (
+        tagProp.type === "multi_select" &&
+        tagProp.multi_select.some(
+          (tagItem) =>
+            typeof tagItem.name === "string" &&
+            tagItem.name.toLowerCase() === tag.toLowerCase()
+        )
+      );
+    });
+  }
 
   if (filtered.length === 0) return notFound();
 
