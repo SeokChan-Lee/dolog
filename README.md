@@ -2,7 +2,7 @@
 
 ## 📌 GitHub
 
-https://github.com/SeokChan-Lee
+![Github](https://github.com/SeokChan-Lee)
 
 ## 📖 Skill
 
