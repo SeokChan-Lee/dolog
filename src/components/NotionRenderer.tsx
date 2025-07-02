@@ -129,6 +129,9 @@ export function NotionRenderer({ blocks }: Props) {
           </details>
         );
       }
+      case "divider": {
+        return <hr key={key} className="my-6 border-t border-gray-300" />;
+      }
       case "table": {
         const tableBlock = block as BlockObjectResponse & {
           children?: BlockObjectResponse[];
