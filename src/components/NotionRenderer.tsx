@@ -5,7 +5,7 @@ import {
   PartialBlockObjectResponse,
   RichTextItemResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import Image from "next/image";
+import ImageBlock from "./ImageBlock";
 import { Fragment } from "react";
 import React from "react";
 import type { ExtendedBlock } from "@/types/notionTypes";
@@ -157,19 +157,14 @@ function renderBlock(block: ExtendedBlock): React.ReactNode {
         </h3>
       );
     case "image": {
-      const source =
+      const rawUrl =
         block.image.type === "external"
           ? block.image.external.url
           : block.image.file.url;
+
       return (
         <div key={key} className="my-4">
-          <Image
-            src={source}
-            alt="notion image"
-            width={600}
-            height={400}
-            className="rounded-lg"
-          />
+          <ImageBlock url={rawUrl} />
         </div>
       );
     }
