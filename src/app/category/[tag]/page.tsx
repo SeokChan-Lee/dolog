@@ -75,7 +75,7 @@ export default async function CategoryPage({ params }: Params) {
 
   return (
     <main className="max-w-3xl mx-auto  py-40">
-      <h1 className="text-3xl font-bold mb-6">{tag}</h1>
+      <h1 className="text-3xl font-bold mb-10">{tag}</h1>
       <PostList posts={filtered} />
     </main>
   );
