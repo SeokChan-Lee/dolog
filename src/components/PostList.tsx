@@ -43,7 +43,7 @@ export default function PostList({ posts }: { posts: PageObjectResponse[] }) {
               alt={title}
               width={600}
               height={300}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover rounded-xl"
             />
             <div className="p-4">
               <h2 className="text-xl font-semibold">{title}</h2>
