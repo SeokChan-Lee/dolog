@@ -1,7 +1,12 @@
-import Link from "next/link";
+"use client";
+
 import Image from "next/image";
+import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
 
 export default function NotFound() {
+  const router = useRouter();
+
   return (
     <div className="h-screen w-screen flex items-center justify-center flex-col gap-5">
       <Image
@@ -13,9 +18,9 @@ export default function NotFound() {
       <span className="font-bold text-l md:text-xl lg:text-2xl">
         페이지를 찾을 수 없습니다.
       </span>
-      <Link href={"/"}>
-        <span className="cursor-pointer">홈으로 돌아가기</span>
-      </Link>
+      <Button className="cursor-pointer" onClick={() => router.push("/")}>
+        <span>홈으로 돌아가기</span>
+      </Button>
     </div>
   );
 }
