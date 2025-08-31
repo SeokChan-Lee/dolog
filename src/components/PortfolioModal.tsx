@@ -9,7 +9,7 @@ export default function PortfolioModal() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200 p-2 rounded-xl"
+        className="text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200 p-2 rounded-xl cursor-pointer"
       >
         Portfolio
       </button>

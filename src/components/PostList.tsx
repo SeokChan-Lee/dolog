@@ -27,7 +27,7 @@ export default function PostList({ posts }: { posts: PageObjectResponse[] }) {
           <Link
             href={`/posts/${slug}`}
             key={page.id}
-            className="block rounded-xl overflow-hidden mx-5 sm:mx-0 hover:scale-105 transition-transform outline-1"
+            className="block rounded-xl overflow-hidden mx-5 sm:mx-0 hover:scale-105 transition-transform outline-1 hover:text-blue-200"
           >
             <div className="p-4">
               <h2 className="text-lg sm:text-xl font-semibold">{title}</h2>
