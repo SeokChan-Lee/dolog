@@ -1,6 +1,5 @@
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import Link from "next/link";
-import Image from "next/image";
 import { formatDate } from "@/utils/formatDate";
 
 export default function PostList({ posts }: { posts: PageObjectResponse[] }) {
@@ -10,7 +9,6 @@ export default function PostList({ posts }: { posts: PageObjectResponse[] }) {
         const titleProp = page.properties?.Title;
         const slugProp = page.properties?.Slug;
         const dateProp = page.properties?.Date;
-        const coverProp = page.cover;
 
         const title =
           titleProp?.type === "title" && titleProp.title.length > 0
@@ -24,13 +22,6 @@ export default function PostList({ posts }: { posts: PageObjectResponse[] }) {
 
         const date =
           dateProp?.type === "date" ? dateProp.date?.start || "" : "";
-
-        const coverImage =
-          coverProp?.type === "external"
-            ? coverProp.external.url
-            : coverProp?.type === "file"
-              ? coverProp.file.url
-              : "/assets/default_img/default_img.png";
 
         return (
           <Link
