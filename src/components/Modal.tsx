@@ -20,11 +20,11 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#030614]/70"
       onClick={onClose}
     >
       <div
-        className={cn("w-[90%]  bg-gray-950", className)}
+        className={cn("w-[90%]  bg-[#030614]", className)}
         onClick={(e) => e.stopPropagation()}
       >
         {children}
