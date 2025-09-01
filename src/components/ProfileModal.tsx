@@ -3,7 +3,7 @@
 import Modal from "./Modal";
 import { useState } from "react";
 
-export default function PortfolioModal() {
+export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
   const SEMI_TITLE = "font-semibold text-2xl mb-1.5";
   return (

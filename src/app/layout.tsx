@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Gnb from "@/components/Gnb";
-import PortfolioModal from "@/components/PortfolioModal";
+import ProfileModal from "@/components/ProfileModal";
 
 export const metadata: Metadata = {
   title: "Dolog",
@@ -23,7 +23,7 @@ export default function RootLayout({
         <Gnb />
         {children}
         <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10 lg:right-14 lg:bottom-14">
-          <PortfolioModal />
+          <ProfileModal />
         </div>
       </body>
     </html>
