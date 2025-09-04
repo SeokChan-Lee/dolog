@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Modal from "./Modal";
 import { useState } from "react";
 
@@ -10,8 +11,14 @@ export default function ProfileModal() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200 p-2 rounded-xl cursor-pointer"
+        className="flex items-center gap-1 text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200 p-2 rounded-xl cursor-pointer"
       >
+        <Image
+          src="/assets/icon/profile_icon.png"
+          alt="프로필 아이콘"
+          width={40}
+          height={40}
+        />
         Profile
       </button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
