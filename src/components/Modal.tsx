@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect } from "react";
 import { cn } from "@/utils/helper";
+import { motion, AnimatePresence } from "motion/react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -25,22 +26,34 @@ export default function Modal({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#030614]/70"
-      onClick={onClose}
-    >
-      <div
-        className={cn(
-          "w-[90%] max-w-[1300px] max-h-[85vh] overflow-y-auto bg-[#030614] rounded-xl p-6",
-          className
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-      </div>
-    </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#030614]/70"
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className={cn(
+              "w-[90%] max-w-[1300px] max-h-[85vh] overflow-y-auto bg-[#030614] rounded-xl p-6",
+              className
+            )}
+            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{
+              duration: 0.35,
+              scale: { type: "spring", bounce: 0.4 },
+            }}
+          >
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
