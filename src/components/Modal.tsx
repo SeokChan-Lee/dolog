@@ -38,7 +38,7 @@ export default function Modal({
         >
           <motion.div
             className={cn(
-              "w-[90%] max-h-[85vh] overflow-y-auto bg-[#030614] rounded-xl p-6",
+              "w-[90%] max-h-[85vh] overflow-y-auto bg-[#111827] rounded-xl p-6",
               className
             )}
             onClick={(e) => e.stopPropagation()}
