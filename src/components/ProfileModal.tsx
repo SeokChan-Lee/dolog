@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import { useState } from "react";
 import Project from "./Project";
 import Experience from "./Experience";
+import Skill from "./Skill";
 
 export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,10 +43,7 @@ export default function ProfileModal() {
             <section className="grid grid-cols-1 gap-15">
               <div className={SEMI_TITLE_BORDER}>
                 <p className={SEMI_TITLE}>스킬</p>
-                <span className="text-[#808fa9]">
-                  React, Next.js, TypeScript, JavaScript, HTML, CSS <br />
-                  Tailwind CSS, Styled Components
-                </span>
+                <Skill />
               </div>
 
               <div className={SEMI_TITLE_BORDER}>
