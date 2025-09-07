@@ -39,7 +39,7 @@ export default function ProfileModal() {
           </section>
 
           <div className="pr-4 overflow-visible lg:max-h-[70vh] lg:overflow-y-auto">
-            <section className="grid grid-cols-1 gap-8 ">
+            <section className="grid grid-cols-1 gap-15">
               <div className={SEMI_TITLE_BORDER}>
                 <p className={SEMI_TITLE}>스킬</p>
                 <span className="text-[#808fa9]">
