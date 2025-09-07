@@ -14,7 +14,7 @@ export default function ProfileModal() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1 text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200 p-2 rounded-xl cursor-pointer shadow-blue-200 shadow-sm"
+        className="flex items-center gap-1 text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200/75 p-2 rounded-xl cursor-pointer shadow-blue-200 shadow-sm"
       >
         <Image
           src="/assets/icon/profile_icon.png"
