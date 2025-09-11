@@ -6,6 +6,7 @@ import { useState } from "react";
 import Project from "./Project";
 import Experience from "./Experience";
 import Skill from "./Skill";
+import Button from "./Button";
 
 export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,10 +14,7 @@ export default function ProfileModal() {
   const SEMI_TITLE_BORDER = "border-l-3 border-l-blue-200 pl-4";
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1 text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200/75 p-2 rounded-xl cursor-pointer shadow-blue-200 shadow-sm"
-      >
+      <Button onClick={() => setIsOpen(true)}>
         <Image
           src="/assets/icon/profile_icon.png"
           alt="프로필 아이콘"
@@ -24,7 +22,7 @@ export default function ProfileModal() {
           height={40}
         />
         Profile
-      </button>
+      </Button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="lg:flex lg:justify-between lg:items-start">
           <section className="mb-15 lg:mb-0 flex flex-col justify-center self-center">

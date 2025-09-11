@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Gnb from "@/components/Gnb";
 import ProfileModal from "@/components/ProfileModal";
+import GitLinkButton from "@/components/GitLinkButton";
 
 export const metadata: Metadata = {
   title: "Dolog",
@@ -22,7 +23,8 @@ export default function RootLayout({
       <body className="antialiased min-h-screen">
         <Gnb />
         {children}
-        <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10 lg:right-14 lg:bottom-14">
+        <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10 lg:right-14 lg:bottom-14 w-35">
+          <GitLinkButton />
           <ProfileModal />
         </div>
       </body>
