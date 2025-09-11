@@ -4,14 +4,7 @@ import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-interface Props {
-  posts: PageObjectResponse[];
-  keyword?: string;
-}
-
-export function SearchGrid({ posts, keyword }: Props) {
-  if (!keyword?.trim()) return null;
-
+export function SearchGrid({ posts }: { posts: PageObjectResponse[] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 gap-6">
       {posts.map((page) => {

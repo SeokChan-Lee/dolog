@@ -2,26 +2,61 @@ import { Client } from "@notionhq/client";
 import type {
   PageObjectResponse,
   BlockObjectResponse,
+  QueryDatabaseParameters,
 } from "@notionhq/client/build/src/api-endpoints";
 import type { ExtendedBlock } from "@/types/notionTypes";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-export async function getDatabase(cursor?: string, pageSize = 10) {
+type GetDbOpts = {
+  cursor?: string;
+  pageSize?: number;
+  tag?: string;
+};
+
+export async function getDatabase({
+  cursor,
+  pageSize = 10,
+  tag,
+}: GetDbOpts = {}) {
   if (!process.env.NOTION_TOKEN) throw new Error("Missing NOTION_TOKEN");
   if (!process.env.NOTION_DATABASE_ID)
     throw new Error("Missing NOTION_DATABASE_ID");
 
-  return await notion.databases.query({
+  const filter: QueryDatabaseParameters["filter"] = {
+    and: [
+      { property: "Published", checkbox: { equals: true } },
+      ...(tag
+        ? [{ property: "Tags", multi_select: { contains: tag } } as const]
+        : []),
+    ],
+  };
+
+  return notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID!,
-    filter: {
-      property: "Published",
-      checkbox: { equals: true },
-    },
+    filter,
     sorts: [{ property: "Date", direction: "descending" }],
     page_size: pageSize,
     start_cursor: cursor,
   });
+}
+
+export async function getAllPostsByTag(
+  tag: string
+): Promise<PageObjectResponse[]> {
+  let cursor: string | undefined;
+  const all: PageObjectResponse[] = [];
+
+  do {
+    const res = await getDatabase({ cursor, pageSize: 50, tag });
+    const pages = res.results.filter(
+      (p): p is PageObjectResponse => p.object === "page" && "properties" in p
+    );
+    all.push(...pages);
+    cursor = res.has_more ? (res.next_cursor ?? undefined) : undefined;
+  } while (cursor);
+
+  return all;
 }
 
 async function getAllBlocks(blockId: string): Promise<ExtendedBlock[]> {
@@ -29,27 +64,22 @@ async function getAllBlocks(blockId: string): Promise<ExtendedBlock[]> {
   let cursor: string | undefined;
 
   do {
-    const response = await notion.blocks.children.list({
+    const res = await notion.blocks.children.list({
       block_id: blockId,
       start_cursor: cursor,
     });
 
-    for (const block of response.results) {
-      if (block.object === "block" && "type" in block) {
-        const extendedBlock: ExtendedBlock = {
-          ...(block as BlockObjectResponse),
-        };
-
-        if (extendedBlock.has_children) {
-          const children = await getAllBlocks(extendedBlock.id);
-          extendedBlock.children = children;
+    for (const b of res.results) {
+      if (b.object === "block" && "type" in b) {
+        const block = b as ExtendedBlock;
+        if (block.has_children) {
+          block.children = await getAllBlocks(block.id);
         }
-
-        blocks.push(extendedBlock);
+        blocks.push(block);
       }
     }
 
-    cursor = response.next_cursor ?? undefined;
+    cursor = res.next_cursor ?? undefined;
   } while (cursor);
 
   return blocks;
@@ -60,21 +90,28 @@ export async function getPageContentBySlug(slug: string): Promise<{
   excerpt: string;
   date: string;
   author: string;
-  blocks: ExtendedBlock[];
+  blocks: BlockObjectResponse[];
 }> {
-  const response = await getDatabase();
+  if (!process.env.NOTION_DATABASE_ID)
+    throw new Error("Missing NOTION_DATABASE_ID");
 
-  const page = response.results.find(
-    (page): page is PageObjectResponse =>
-      "properties" in page &&
-      page.properties?.Slug?.type === "rich_text" &&
-      Array.isArray(page.properties.Slug.rich_text) &&
-      page.properties.Slug.rich_text[0]?.plain_text === slug
+  const filter: QueryDatabaseParameters["filter"] = {
+    and: [
+      { property: "Published", checkbox: { equals: true } },
+      { property: "Slug", rich_text: { equals: slug } },
+    ],
+  };
+
+  const res = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE_ID!,
+    filter,
+    page_size: 1,
+  });
+
+  const page = res.results.find(
+    (p): p is PageObjectResponse => p.object === "page" && "properties" in p
   );
-
   if (!page) throw new Error("Page not found");
-
-  const blocks = await getAllBlocks(page.id);
 
   const titleProp = page.properties?.Title;
   const title =
@@ -97,11 +134,7 @@ export async function getPageContentBySlug(slug: string): Promise<{
       ? authorProp.rich_text[0].plain_text
       : "작성자 없음";
 
-  return {
-    title,
-    excerpt,
-    date,
-    author,
-    blocks,
-  };
+  const blocks = await getAllBlocks(page.id);
+
+  return { title, excerpt, date, author, blocks };
 }
