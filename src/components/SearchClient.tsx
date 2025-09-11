@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import SearchInput from "./SearchInput";
 import { SearchGrid } from "./SearchGrid";
+import Spinner from "./Spinner";
 
 type ApiPage = {
   results: PageObjectResponse[];
@@ -60,9 +61,9 @@ export default function SearchClient() {
       <h1 className="text-4xl font-bold mb-3 mx-5 sm:mx-0">Search Post</h1>
       <SearchInput keyword={keyword} setKeyword={setKeyword} />
       {!hasQuery ? null : isLoading ? (
-        <p className="text-gray-500 mt-5 text-center md:text-xl text-lg">
-          불러오는 중…
-        </p>
+        <div className="w-full flex  justify-center">
+          <Spinner />
+        </div>
       ) : isError ? (
         <p className="text-red-400 mt-5 text-center md:text-xl text-lg">
           에러가 발생했습니다.
