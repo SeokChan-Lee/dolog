@@ -12,8 +12,10 @@ interface Props {
 export default function SearchClient({ posts }: Props) {
   const [keyword, setKeyword] = useState("");
 
+  const hasQuery = keyword.trim().length > 0;
+
   const filtered = useMemo(() => {
-    if (!keyword.trim()) return posts;
+    if (!hasQuery) return [];
 
     const terms = keyword.toLowerCase().split(/\s+/).filter(Boolean);
 
@@ -25,16 +27,18 @@ export default function SearchClient({ posts }: Props) {
 
       return terms.every((term) => title.toLowerCase().includes(term));
     });
-  }, [keyword, posts]);
+  }, [hasQuery, keyword, posts]);
 
   return (
-    <div className="max-w-3xl mx-auto py-40 ">
-      <h1 className="text-4xl font-bold mb-3 mx-5 sm:mx-0">Search Post</h1>
+    <div className="max-w-3xl mx-auto py-40">
+      <h1 className="text-4xl font-bold mb-3 mx-5 sm:mx-0 mt-30">
+        Search Post
+      </h1>
       <SearchInput keyword={keyword} setKeyword={setKeyword} />
-      {filtered.length > 0 ? (
-        <SearchGrid posts={filtered} />
+      {!hasQuery ? null : filtered.length > 0 ? (
+        <SearchGrid posts={filtered} keyword={keyword} />
       ) : (
-        <p className="text-gray-500 mt-10 text-center text-2xl">
+        <p className="text-gray-500 mt-5 text-center md:text-xl text-lg">
           검색 결과가 없습니다.
         </p>
       )}

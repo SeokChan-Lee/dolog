@@ -1,21 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { formatDate } from "@/utils/formatDate";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 interface Props {
   posts: PageObjectResponse[];
+  keyword?: string;
 }
 
-export function SearchGrid({ posts }: Props) {
+export function SearchGrid({ posts, keyword }: Props) {
+  if (!keyword?.trim()) return null;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+    <div className="grid grid-cols-1 sm:grid-cols-1 gap-6">
       {posts.map((page) => {
         const titleProp = page.properties?.Title;
         const slugProp = page.properties?.Slug;
-        const coverProp = page.cover;
         const dateProp = page.properties?.Date;
 
         const title =
@@ -30,29 +31,15 @@ export function SearchGrid({ posts }: Props) {
 
         const date = dateProp?.type === "date" ? dateProp.date?.start : "";
 
-        const coverImage =
-          coverProp?.type === "external"
-            ? coverProp.external.url
-            : coverProp?.type === "file"
-              ? coverProp.file.url
-              : "/assets/default_img/default_img.png";
-
         return (
           <Link
             href={`/posts/${slug}`}
             key={page.id}
-            className="block rounded overflow-hidden mx-5 sm:mx-0 "
+            className="block rounded-xl overflow-hidden mx-5 sm:mx-0 hover:scale-105 transition-transform outline-1 hover:text-blue-200"
           >
-            <Image
-              src={coverImage}
-              alt={title}
-              width={600}
-              height={300}
-              className="w-full h-48 object-cover transition-transform duration-200 hover:scale-105"
-            />
             <div className="p-4">
-              <h2 className="text-xl font-semibold">{title}</h2>
-              <p className="text-sm text-gray-500 mb-6">
+              <h2 className="text-lg sm:text-xl font-semibold">{title}</h2>
+              <p className="text-sm text-gray-500 mt-1">
                 {date ? formatDate(date) : ""}
               </p>
             </div>
