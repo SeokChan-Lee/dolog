@@ -3,6 +3,7 @@ import "./globals.css";
 import Gnb from "@/components/Gnb";
 import ProfileModal from "@/components/ProfileModal";
 import GitLinkButton from "@/components/GitLinkButton";
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Dolog",
@@ -21,12 +22,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon/favicon.ico" />
       </head>
       <body className="antialiased min-h-screen">
-        <Gnb />
-        {children}
-        <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10 lg:right-14 lg:bottom-14 w-35">
-          <GitLinkButton />
-          <ProfileModal />
-        </div>
+        <Providers>
+          <Gnb />
+          {children}
+          <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10 lg:right-14 lg:bottom-14 w-35">
+            <GitLinkButton />
+            <ProfileModal />
+          </div>
+        </Providers>
       </body>
     </html>
   );

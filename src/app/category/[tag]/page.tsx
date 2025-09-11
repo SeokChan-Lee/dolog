@@ -1,8 +1,8 @@
 import { getDatabase } from "@/lib/notion";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import PostList from "@/components/PostList";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import CategoryPostList from "@/components/CategoryPostList";
 
 interface Params {
   params: Promise<{ tag: string }>;
@@ -76,7 +76,7 @@ export default async function CategoryPage({ params }: Params) {
   return (
     <main className="max-w-3xl mx-auto  py-40">
       <h1 className="text-3xl font-bold mb-10">{tag}</h1>
-      <PostList posts={filtered} />
+      <CategoryPostList posts={filtered} />
     </main>
   );
 }

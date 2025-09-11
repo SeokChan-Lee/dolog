@@ -7,21 +7,20 @@ import type { ExtendedBlock } from "@/types/notionTypes";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-export async function getDatabase() {
+export async function getDatabase(cursor?: string, pageSize = 10) {
+  if (!process.env.NOTION_TOKEN) throw new Error("Missing NOTION_TOKEN");
+  if (!process.env.NOTION_DATABASE_ID)
+    throw new Error("Missing NOTION_DATABASE_ID");
+
   return await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID!,
     filter: {
       property: "Published",
-      checkbox: {
-        equals: true,
-      },
+      checkbox: { equals: true },
     },
-    sorts: [
-      {
-        property: "Date",
-        direction: "descending",
-      },
-    ],
+    sorts: [{ property: "Date", direction: "descending" }],
+    page_size: pageSize,
+    start_cursor: cursor,
   });
 }
 
