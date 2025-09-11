@@ -6,6 +6,7 @@ import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import Spinner from "./Spinner";
+import Image from "next/image";
 
 type ApiPage = {
   results: PageObjectResponse[];
@@ -30,15 +31,21 @@ async function fetchPosts({
 }
 
 export default function PostList() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery<ApiPage>({
-      queryKey: ["posts"],
-      queryFn: ({ pageParam, signal }) =>
-        fetchPosts({ pageParam: pageParam as string | undefined, signal }),
-      getNextPageParam: (lastPage) =>
-        lastPage.has_more ? (lastPage.next_cursor ?? undefined) : undefined,
-      initialPageParam: undefined,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useInfiniteQuery<ApiPage>({
+    queryKey: ["posts"],
+    queryFn: ({ pageParam, signal }) =>
+      fetchPosts({ pageParam: pageParam as string | undefined, signal }),
+    getNextPageParam: (lastPage) =>
+      lastPage.has_more ? (lastPage.next_cursor ?? undefined) : undefined,
+    initialPageParam: undefined,
+  });
 
   const posts: PageObjectResponse[] =
     data?.pages.flatMap((page) => page.results) ?? [];
@@ -48,6 +55,29 @@ export default function PostList() {
       fetchNextPage();
     }
   });
+
+  if (isLoading) {
+    return (
+      <div className="max-w-3xl mx-auto py-40 flex justify-center">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="max-w-3xl mx-auto py-40 flex flex-col justify-center">
+        <Image
+          src={"/assets/notFound_img/dolog_notFound_img.png"}
+          width={300}
+          height={300}
+          alt="물음표 이미지"
+          className="rounded-full"
+        />
+        <p className="font-bold text-2xl">오류가 발생했습니다.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto ">
