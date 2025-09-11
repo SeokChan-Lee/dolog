@@ -80,8 +80,8 @@ export default function PostList() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto ">
-      <div className="grid grid-cols-1 gap-6">
+    <div className="max-w-3xl mx-auto">
+      <div className="grid grid-cols-1 gap-6 px-5 md:px-0">
         {posts.map((page) => {
           const titleProp = page.properties?.Title;
           const slugProp = page.properties?.Slug;

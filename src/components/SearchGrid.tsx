@@ -6,7 +6,7 @@ import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoint
 
 export function SearchGrid({ posts }: { posts: PageObjectResponse[] }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 gap-6">
       {posts.map((page) => {
         const titleProp = page.properties?.Title;
         const slugProp = page.properties?.Slug;
