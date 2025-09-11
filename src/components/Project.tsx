@@ -42,7 +42,7 @@ export default function Project({
           href={deployLinkAddress}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline flex bg-blue-200 w-fit rounded-lg px-2 py-1 text-black gap-1 items-center text-sm"
+          className="hover:underline flex bg-blue-200 w-fit rounded-lg px-2 py-1 text-black gap-1 items-center text-sm transition-transform duration-200 hover:scale-105"
         >
           <Image
             src="/assets/icon/link_icon.png"
@@ -57,7 +57,7 @@ export default function Project({
             href={repoAddress}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline flex bg-blue-200 w-fit rounded-lg px-2 py-1 text-black gap-2 items-center text-sm"
+            className="hover:underline flex bg-blue-200 w-fit rounded-lg px-2 py-1 text-black gap-2 items-center text-sm transition-transform duration-200 hover:scale-105"
           >
             <Image
               src="/assets/icon/git_icon.png"
