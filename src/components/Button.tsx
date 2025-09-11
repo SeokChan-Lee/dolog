@@ -18,7 +18,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       className={cn(
-        "outline-1 p-3 rounded-lg font-semibold hover:text-blue-200 transition-transform duration-200 hover:scale-105 cursor-pointer",
+        "w-full flex justify-center items-center gap-1 text-xl font-bold  transition-transform duration-200 hover:scale-105 text-black bg-blue-200/75 p-2 rounded-xl cursor-pointer shadow-blue-200 shadow-sm",
         className
       )}
     >
