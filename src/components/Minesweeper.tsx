@@ -10,13 +10,11 @@ type Cell = {
   revealed: boolean;
   flagged: boolean;
 };
-
 type Board = Cell[][];
 
 function inBounds(r: number, c: number, rows: number, cols: number) {
   return r >= 0 && r < rows && c >= 0 && c < cols;
 }
-
 function neighbors(r: number, c: number) {
   const dirs = [-1, 0, 1];
   const out: [number, number][] = [];
@@ -28,7 +26,6 @@ function neighbors(r: number, c: number) {
   }
   return out;
 }
-
 function emptyBoard(rows: number, cols: number): Board {
   return Array.from({ length: rows }, (_, r) =>
     Array.from(
@@ -44,7 +41,6 @@ function emptyBoard(rows: number, cols: number): Board {
     )
   );
 }
-
 function placeMines(
   board: Board,
   mineCount: number,
@@ -52,6 +48,7 @@ function placeMines(
 ) {
   const rows = board.length;
   const cols = board[0].length;
+
   const coords: [number, number][] = [];
   for (let r = 0; r < rows; r++)
     for (let c = 0; c < cols; c++) coords.push([r, c]);
@@ -78,7 +75,6 @@ function placeMines(
     }
   }
 }
-
 function floodReveal(board: Board, startR: number, startC: number) {
   const rows = board.length;
   const cols = board[0].length;
@@ -113,6 +109,7 @@ export default function Minesweeper({
     c: number;
   } | null>(null);
   const [gameOver, setGameOver] = useState<"win" | "lose" | null>(null);
+  const [flagMode, setFlagMode] = useState(false);
 
   const flagsUsed = useMemo(
     () => board.flat().filter((c) => c.flagged).length,
@@ -124,6 +121,7 @@ export default function Minesweeper({
     setBoard(emptyBoard(rows, cols));
     setFirstClickAt(null);
     setGameOver(null);
+    setFlagMode(false);
   }, [rows, cols]);
 
   useEffect(() => {
@@ -133,7 +131,6 @@ export default function Minesweeper({
   const revealCell = useCallback(
     (r: number, c: number) => {
       if (gameOver) return;
-
       setBoard((prev) => {
         const next = prev.map((row) => row.map((cell) => ({ ...cell })));
 
@@ -184,12 +181,18 @@ export default function Minesweeper({
     [gameOver]
   );
 
+  const handleCellPrimary = (r: number, c: number) => {
+    if (flagMode) toggleFlag(r, c);
+    else revealCell(r, c);
+  };
+
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-3">
         <span className="text-sm rounded bg-gray-800/60 px-3 py-1">
           Mines: {minesLeft}
         </span>
+
         {gameOver && (
           <span
             className={`text-sm rounded px-3 py-1 ${
@@ -199,6 +202,19 @@ export default function Minesweeper({
             {gameOver === "win" ? "You Win!" : "Game Over"}
           </span>
         )}
+
+        <button
+          onClick={() => setFlagMode((v) => !v)}
+          className={`text-sm rounded px-3 py-1 transition ${
+            flagMode
+              ? "bg-yellow-500/80 hover:bg-yellow-500 text-black"
+              : "bg-slate-700/80 hover:bg-slate-700"
+          }`}
+          aria-pressed={flagMode}
+        >
+          {flagMode ? "🚩 깃발 모드 On" : "🚩 깃발 모드 Off"}
+        </button>
+
         <button
           onClick={reset}
           className="text-sm rounded bg-blue-600/80 hover:bg-blue-600 px-3 py-1"
@@ -236,7 +252,7 @@ export default function Minesweeper({
           return (
             <button
               key={key}
-              onClick={() => revealCell(cell.row, cell.col)}
+              onClick={() => handleCellPrimary(cell.row, cell.col)}
               onContextMenu={(e) => {
                 e.preventDefault();
                 toggleFlag(cell.row, cell.col);
