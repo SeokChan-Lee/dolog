@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Chip from "./Chip";
 
 interface ProjectProps {
   projectName: string;
@@ -10,6 +11,7 @@ interface ProjectProps {
   isIntern?: boolean;
   isRepoLink?: boolean;
   repoAddress?: string;
+  chips?: string[][];
 }
 
 export default function Project({
@@ -22,6 +24,7 @@ export default function Project({
   isIntern = false,
   isRepoLink = false,
   repoAddress,
+  chips = [],
 }: ProjectProps) {
   return (
     <article className="flex flex-col">
@@ -36,6 +39,18 @@ export default function Project({
       </p>
 
       <p className="mb-4 text-[#808fa9]">{introduction}</p>
+
+      {chips && chips.length > 0 && (
+        <div className="flex flex-col gap-2 mb-4">
+          {chips.map((line, lineIdx) => (
+            <div key={lineIdx} className="flex gap-2 flex-wrap">
+              {line.map((chip, idx) => (
+                <Chip key={idx}>{chip}</Chip>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="flex gap-5">
         <a
