@@ -75,6 +75,10 @@ export default function ProfileModal() {
                     }
                     deployLinkAddress="https://project-welive-fe.vercel.app"
                     deployLink="project-welive-fe.vercel.app"
+                    chips={[
+                      ["Next.js", "Tailwind CSS"],
+                      ["React Hook Form", "Zod", "Zustand"],
+                    ]}
                   />
                   <Project
                     projectName="에피그램"
@@ -93,6 +97,11 @@ export default function ProfileModal() {
                     deployLink="epigram-gilv.vercel.app"
                     isRepoLink
                     repoAddress="https://github.com/kss761036/Epigram"
+                    chips={[
+                      ["Next.js", "Tailwind CSS"],
+                      ["React Hook Form", "Zod", "Zustand"],
+                      ["Storybook", "Jest", "Cypress"],
+                    ]}
                   />
                 </div>
               </div>
@@ -145,6 +154,16 @@ export default function ProfileModal() {
                       이수
                     </span>
                   </div>
+                </div>
+              </div>
+              <div className={SEMI_TITLE_BORDER}>
+                <p className={SEMI_TITLE}>학력</p>
+                <div className="grid grid-cols-1">
+                  <span className="text-xl font-semibold">강남대학교</span>
+                  <span className="text-sm mb-4 text-[#808fa9]">
+                    2017.03 ~ 2019.02 (졸업)
+                  </span>
+                  <span className="text-[#808fa9]">국제통상학과</span>
                 </div>
               </div>
             </section>
