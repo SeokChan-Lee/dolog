@@ -4,7 +4,7 @@ import CategoryList from "./CategoryList";
 
 export default function Gnb() {
   return (
-    <div className="fixed backdrop-blur-md w-full p-3 z-10">
+    <div className="fixed backdrop-blur-md w-full px-5 py-3 z-10 md:px-3">
       <div className="flex justify-between max-w-3xl mx-auto items-center">
         <Link href="/">
           <div className="flex items-center gap-3 transition-transform duration-200 hover:scale-105">
