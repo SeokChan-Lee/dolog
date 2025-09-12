@@ -30,10 +30,20 @@ export default function ProfileModal() {
               <p className="text-4xl font-bold mb-2">이석찬</p>
               <p className="text-2xl">프론트엔드 개발자</p>
             </div>
-            <p className="text-lg text-[#808fa9] border-l-blue-200 pl-4 border-l-3">
+            <p className="text-lg text-[#808fa9] border-l-blue-200 pl-4 border-l-3 mb-10">
               사용자 경험과 코드 품질 모두에 집중하는
               <br />
               프론트엔드 개발자 이석찬입니다.
+            </p>
+            <p className="text-lg text-[#808fa9] border-l-blue-200 pl-4 border-l-3">
+              ✉️ : melee0826@gmail.com
+              <br />
+              <a
+                href="https://github.com/SeokChan-Lee"
+                className="hover:underline"
+              >
+                📌 : GitHub
+              </a>
             </p>
           </section>
 
