@@ -15,7 +15,10 @@ export default function FloatingButton({
   onClick,
 }: FloatingButtonProps) {
   const content = (
-    <Button className="w-fit h-fit rounded-full p-3 mb-3" onClick={onClick}>
+    <Button
+      className="w-fit h-fit rounded-full p-3 mb-3 hover:scale-110"
+      onClick={onClick}
+    >
       <Image src={iconSrc} alt={`${label} 아이콘`} width={45} height={45} />
     </Button>
   );
