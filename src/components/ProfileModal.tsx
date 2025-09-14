@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Modal from "./Modal";
 import { useState } from "react";
 import Project from "./Project";
 import Experience from "./Experience";
 import Skill from "./Skill";
-import Button from "./Button";
+import FloatingButton from "./FloatingButton";
 
 export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,15 +13,11 @@ export default function ProfileModal() {
   const SEMI_TITLE_BORDER = "border-l-3 border-l-blue-200 pl-4";
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>
-        <Image
-          src="/assets/icon/profile_icon.png"
-          alt="프로필 아이콘"
-          width={40}
-          height={40}
-        />
-        Profile
-      </Button>
+      <FloatingButton
+        onClick={() => setIsOpen(true)}
+        iconSrc="/assets/icon/profile_icon.png"
+        label="프로필 아이콘"
+      />
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="lg:flex lg:justify-between lg:items-start">
           <section className="mb-15 lg:mb-0 flex flex-col justify-center self-center">
