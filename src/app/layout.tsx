@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Gnb from "@/components/Gnb";
 import ProfileModal from "@/components/ProfileModal";
-import GitLinkButton from "@/components/GitLinkButton";
 import { Providers } from "@/components/Providers";
+import FloatingButton from "@/components/FloatingButton";
 
 export const metadata: Metadata = {
   title: "Dolog",
@@ -25,8 +25,12 @@ export default function RootLayout({
         <Providers>
           <Gnb />
           {children}
-          <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10 lg:right-14 lg:bottom-14 w-35">
-            <GitLinkButton />
+          <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10 lg:right-30 lg:bottom-14 ">
+            <FloatingButton
+              label="깃허브"
+              iconSrc="/assets/icon/git_icon.png"
+              href="https://github.com/SeokChan-Lee"
+            />
             <ProfileModal />
           </div>
         </Providers>
