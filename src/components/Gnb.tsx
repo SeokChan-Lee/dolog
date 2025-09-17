@@ -23,9 +23,13 @@ export default function Gnb() {
           </div>
         </Link>
         <Link href="/search">
-          <h1 className="text-xl font-bold hover:text-blue-200 transition-transform duration-200 hover:scale-105">
-            검색
-          </h1>
+          <Image
+            src="/assets/icon/search_icon.svg"
+            alt="검색 아이콘"
+            width={40}
+            height={40}
+            className="transition-transform duration-200 hover:scale-110 text-blu"
+          />
         </Link>
       </div>
       <div className="max-w-3xl mx-auto mt-3">
