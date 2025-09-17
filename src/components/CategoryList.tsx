@@ -6,7 +6,7 @@ export default async function CategoryList() {
 
   return (
     <div className="flex justify-between">
-      <div className="flex gap-4 font-bold text-xl items-center">
+      <div className="flex gap-4 font-bold text-lg md:text-xl items-center flex-wrap">
         {tags.map((tag) => (
           <Link
             key={tag}
