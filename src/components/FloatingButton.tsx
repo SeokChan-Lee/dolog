@@ -6,6 +6,7 @@ interface FloatingButtonProps {
   label: string;
   href?: string;
   onClick?: () => void;
+  isTopScroll?: boolean;
 }
 
 export default function FloatingButton({
@@ -13,13 +14,20 @@ export default function FloatingButton({
   label,
   href,
   onClick,
+  isTopScroll = false,
 }: FloatingButtonProps) {
   const content = (
     <Button
       className="w-fit h-fit rounded-full p-3 mb-3 hover:scale-110"
       onClick={onClick}
     >
-      <Image src={iconSrc} alt={`${label} 아이콘`} width={45} height={45} />
+      {isTopScroll ? (
+        <div className="w-[45px] h-[45px] flex items-center justify-center">
+          <Image src={iconSrc} alt={`${label} 아이콘`} width={30} height={30} />
+        </div>
+      ) : (
+        <Image src={iconSrc} alt={`${label} 아이콘`} width={45} height={45} />
+      )}
     </Button>
   );
 
