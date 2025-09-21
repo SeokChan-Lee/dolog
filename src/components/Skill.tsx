@@ -13,7 +13,7 @@ export default function Skill() {
       </section>
       <section className="flex flex-wrap gap-2">
         <Chip>Tailwind CSS</Chip>
-        <Chip>Styled ComponentsReact</Chip>
+        <Chip>Styled Components</Chip>
       </section>
     </>
   );
