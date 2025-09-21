@@ -36,20 +36,27 @@ function getColorClass(color: string): string {
 }
 
 function renderText(text: RichTextItemResponse): React.ReactNode {
-  const { plain_text, annotations } = text;
+  const { plain_text, annotations, type } = text;
   const className = getColorClass(annotations.color);
-  const parts = plain_text.split("\n");
+  const base = `${className} whitespace-pre-wrap break-words`;
 
-  return (
-    <>
-      {parts.map((part, i) => (
-        <React.Fragment key={i}>
-          <span className={className}>{part}</span>
-          {i < parts.length - 1 && <br />}
-        </React.Fragment>
-      ))}
-    </>
-  );
+  const link =
+    type === "text" && text.text.link ? text.text.link.url : undefined;
+
+  if (link) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`underline text-blue-600 hover:text-blue-800 ${base}`}
+      >
+        {plain_text}
+      </a>
+    );
+  }
+
+  return <span className={base}>{plain_text}</span>;
 }
 
 function renderChildren(children?: ExtendedBlock[]) {
@@ -135,14 +142,23 @@ function renderBlock(block: ExtendedBlock): React.ReactNode {
   const key = block.id;
 
   switch (block.type) {
-    case "paragraph":
+    case "paragraph": {
+      const texts = block.paragraph.rich_text;
+      if (!texts || texts.length === 0) {
+        return (
+          <p key={key} className="my-4">
+            &nbsp;
+          </p>
+        );
+      }
       return (
         <p key={key}>
-          {block.paragraph.rich_text.map((text, i) => (
-            <Fragment key={i}>{renderText(text)}</Fragment>
+          {texts.map((t, i) => (
+            <Fragment key={i}>{renderText(t)}</Fragment>
           ))}
         </p>
       );
+    }
     case "heading_1":
       return (
         <h1 key={key} className="text-3xl font-bold mt-6 mb-2">
