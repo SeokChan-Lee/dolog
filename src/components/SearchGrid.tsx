@@ -11,6 +11,7 @@ export function SearchGrid({ posts }: { posts: PageObjectResponse[] }) {
         const titleProp = page.properties?.Title;
         const slugProp = page.properties?.Slug;
         const dateProp = page.properties?.Date;
+        const tagsProp = page.properties?.Tags;
 
         const title =
           titleProp?.type === "title" && titleProp.title.length > 0
@@ -24,6 +25,9 @@ export function SearchGrid({ posts }: { posts: PageObjectResponse[] }) {
 
         const date = dateProp?.type === "date" ? dateProp.date?.start : "";
 
+        const tags =
+          tagsProp?.type === "multi_select" ? tagsProp.multi_select : [];
+
         return (
           <Link
             href={`/posts/${slug}`}
@@ -32,9 +36,17 @@ export function SearchGrid({ posts }: { posts: PageObjectResponse[] }) {
           >
             <div className="p-4">
               <h2 className="text-lg sm:text-xl font-semibold">{title}</h2>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-500 my-1">
                 {date ? formatDate(date) : ""}
               </p>
+              {tags.map((tag) => (
+                <span
+                  key={tag.id}
+                  className="px-2 py-1 text-xs rounded-lg bg-blue-200 text-gray-700 font-bold"
+                >
+                  {tag.name}
+                </span>
+              ))}
             </div>
           </Link>
         );
