@@ -5,6 +5,7 @@ import ProfileModal from "@/components/ProfileModal";
 import { Providers } from "@/components/Providers";
 import FloatingButton from "@/components/FloatingButton";
 import ScrollToTopButton from "@/components/ScrollTopButton";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Dolog",
@@ -23,6 +24,21 @@ export default function RootLayout({
         <link rel="icon" href="/favicon/favicon.ico" />
       </head>
       <body className="antialiased min-h-screen">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TF3HKE3PL5"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-setup" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TF3HKE3PL5', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+
         <Providers>
           <Gnb />
           {children}
