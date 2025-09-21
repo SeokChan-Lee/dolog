@@ -38,7 +38,18 @@ function getColorClass(color: string): string {
 function renderText(text: RichTextItemResponse): React.ReactNode {
   const { plain_text, annotations } = text;
   const className = getColorClass(annotations.color);
-  return <span className={className}>{plain_text}</span>;
+  const parts = plain_text.split("\n");
+
+  return (
+    <>
+      {parts.map((part, i) => (
+        <React.Fragment key={i}>
+          <span className={className}>{part}</span>
+          {i < parts.length - 1 && <br />}
+        </React.Fragment>
+      ))}
+    </>
+  );
 }
 
 function renderChildren(children?: ExtendedBlock[]) {
