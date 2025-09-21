@@ -29,9 +29,9 @@ export default function ScrollToTopButton() {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0 }}
       >
         <FloatingButton
           iconSrc="/assets/icon/up_arrow.png"
