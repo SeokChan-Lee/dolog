@@ -1,13 +1,9 @@
 "use server";
 
-import { getDatabase } from "@/lib/notion";
-import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { getAllPages } from "@/lib/notion";
 
 export async function getAllTags(): Promise<string[]> {
-  const response = await getDatabase();
-  const pages = response.results.filter(
-    (page): page is PageObjectResponse => "properties" in page
-  );
+  const pages = await getAllPages();
 
   const tagSet = new Set<string>();
   for (const page of pages) {

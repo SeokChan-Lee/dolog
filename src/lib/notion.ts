@@ -138,3 +138,19 @@ export async function getPageContentBySlug(slug: string): Promise<{
 
   return { title, excerpt, date, author, blocks };
 }
+
+export async function getAllPages(): Promise<PageObjectResponse[]> {
+  let cursor: string | undefined;
+  const all: PageObjectResponse[] = [];
+
+  do {
+    const res = await getDatabase({ cursor, pageSize: 50 });
+    const pages = res.results.filter(
+      (p): p is PageObjectResponse => p.object === "page" && "properties" in p
+    );
+    all.push(...pages);
+    cursor = res.has_more ? (res.next_cursor ?? undefined) : undefined;
+  } while (cursor);
+
+  return all;
+}
