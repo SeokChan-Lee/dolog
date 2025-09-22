@@ -22,15 +22,23 @@ export default function Gnb() {
             />
           </div>
         </Link>
-        <Link href="/search">
-          <Image
-            src="/assets/icon/search_icon.svg"
-            alt="검색 아이콘"
-            width={40}
-            height={40}
-            className="transition-transform duration-200 hover:scale-110 text-blu"
-          />
-        </Link>
+        <div className="flex items-center gap-3.5">
+          <Link
+            className="transition-transform duration-200 hover:scale-105"
+            href="/minesweeper"
+          >
+            💣
+          </Link>
+          <Link href="/search">
+            <Image
+              src="/assets/icon/search_icon.svg"
+              alt="검색 아이콘"
+              width={40}
+              height={40}
+              className="transition-transform duration-200 hover:scale-110 text-blu"
+            />
+          </Link>
+        </div>
       </div>
       <div className="max-w-3xl mx-auto mt-3">
         <CategoryList />
