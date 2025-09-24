@@ -115,14 +115,16 @@ export default function PostList() {
                 <p className="text-sm text-gray-500 my-1">
                   {date ? formatDate(date) : ""}
                 </p>
-                {tags.map((tag) => (
-                  <span
-                    key={tag.id}
-                    className="px-2 py-1 text-xs rounded-lg bg-blue-200 text-gray-700 font-bold"
-                  >
-                    {tag.name}
-                  </span>
-                ))}
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {tags.map((tag) => (
+                    <span
+                      key={tag.id}
+                      className="px-2 py-1 text-xs rounded-lg bg-blue-200 text-gray-700 font-bold"
+                    >
+                      {tag.name}
+                    </span>
+                  ))}
+                </div>
               </div>
             </Link>
           );
