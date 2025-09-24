@@ -24,6 +24,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon/favicon.ico" />
       </head>
       <body className="antialiased min-h-screen">
+        <div className="bg-blue-400 w-[60vw] h-[60vw] top-1/2 left-1/2 -translate-1/2 rounded-full fixed opacity-10 blur-3xl pointer-events-none"></div>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-TF3HKE3PL5"
           strategy="afterInteractive"
