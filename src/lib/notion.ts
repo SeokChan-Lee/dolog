@@ -5,6 +5,7 @@ import type {
   QueryDatabaseParameters,
 } from "@notionhq/client/build/src/api-endpoints";
 import type { ExtendedBlock } from "@/types/notionTypes";
+import { notFound } from "next/navigation";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
@@ -111,7 +112,7 @@ export async function getPageContentBySlug(slug: string): Promise<{
   const page = res.results.find(
     (p): p is PageObjectResponse => p.object === "page" && "properties" in p
   );
-  if (!page) throw new Error("Page not found");
+  if (!page) return notFound();
 
   const titleProp = page.properties?.Title;
   const title =
