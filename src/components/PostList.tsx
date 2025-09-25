@@ -26,7 +26,7 @@ async function fetchPosts({
     signal,
     cache: "no-store",
   });
-  if (!res.ok) throw new Error("Failed to fetch posts");
+  if (!res.ok) throw new Error("게시물을 불러올 수 없습니다.");
   return res.json();
 }
 
