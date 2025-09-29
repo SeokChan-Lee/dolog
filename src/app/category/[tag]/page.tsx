@@ -23,7 +23,7 @@ export default async function CategoryPage({
   if (posts.length === 0) return notFound();
 
   return (
-    <main className="max-w-3xl mx-auto py-40 px-5 md:px-0">
+    <main className="max-w-3xl mx-auto pt-50 pb-30 px-5 md:px-0">
       <h1 className="text-3xl font-bold mb-10">{tag}</h1>
       <CategoryPostList posts={posts} />
     </main>

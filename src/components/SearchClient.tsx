@@ -57,7 +57,7 @@ export default function SearchClient() {
   }, [hasQuery, keyword, allPosts]);
 
   return (
-    <div className="max-w-3xl mx-auto py-40">
+    <div className="max-w-3xl mx-auto pt-50 pb-30">
       <SearchInput keyword={keyword} setKeyword={setKeyword} />
       {!hasQuery ? null : isLoading ? (
         <div className="w-full flex  justify-center">
