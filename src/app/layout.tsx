@@ -9,7 +9,7 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Dolog",
-  description: "이석찬의 개발 블로그입니다.",
+  description: "내가 하고 싶은대로 만드는 개발 블로그",
   openGraph: {
     images: "https://dolog-ten.vercel.app/assets/Logo/Dolog_Logo.png",
   },
