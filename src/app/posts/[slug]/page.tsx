@@ -52,7 +52,9 @@ export default async function Page({
       <p className="text-md text-gray-500 mb-10 border-b-2 pb-10">
         {formatDate(pageData.date)}
       </p>
+      <div className="border-b-2 border-gray-500">
       <NotionRenderer blocks={pageData.blocks} />
+      </div>
     </main>
   );
 }
