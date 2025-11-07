@@ -35,7 +35,7 @@ export default function Gnb() {
               alt="검색 아이콘"
               width={40}
               height={40}
-              className="transition-transform duration-200 hover:scale-110 text-blu"
+              className="transition-transform duration-200 hover:scale-110"
             />
           </Link>
         </div>
