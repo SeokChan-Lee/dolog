@@ -187,10 +187,10 @@ export default function Minesweeper({
   };
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-10">
       <div className="flex flex-wrap items-center gap-3">
         <span className="text-sm rounded bg-gray-800/60 px-3 py-1">
-          Mines: {minesLeft}
+          지뢰 : {minesLeft}
         </span>
 
         {gameOver && (
@@ -205,7 +205,7 @@ export default function Minesweeper({
 
         <button
           onClick={() => setFlagMode((v) => !v)}
-          className={`text-sm rounded px-3 py-1 transition ${
+          className={`text-sm rounded px-3 py-1 transition hover:cursor-pointer ${
             flagMode
               ? "bg-yellow-500/80 hover:bg-yellow-500 text-black"
               : "bg-slate-700/80 hover:bg-slate-700"
@@ -217,9 +217,9 @@ export default function Minesweeper({
 
         <button
           onClick={reset}
-          className="text-sm rounded bg-blue-600/80 hover:bg-blue-600 px-3 py-1"
+          className="text-sm rounded bg-blue-600/80 hover:bg-blue-600 px-3 py-1 hover:cursor-pointer"
         >
-          Reset
+          리셋
         </button>
       </div>
 
