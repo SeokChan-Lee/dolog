@@ -199,7 +199,7 @@ export default function Minesweeper({
               gameOver === "win" ? "bg-green-600/70" : "bg-red-600/70"
             }`}
           >
-            {gameOver === "win" ? "You Win!" : "Game Over"}
+            {gameOver === "win" ? "승리!" : "패배"}
           </span>
         )}
 
