@@ -9,7 +9,7 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center flex-col gap-5">
+    <main className="h-screen w-screen flex items-center justify-center flex-col gap-5">
       <Image
         src={"/assets/notFound_img/dolog_notFound_img.png"}
         width={300}
@@ -17,12 +17,12 @@ export default function NotFound() {
         alt="물음표 이미지"
         className="rounded-full"
       />
-      <span className="font-bold text-2xl">페이지를 찾을 수 없습니다.</span>
+      <h1 className="font-bold text-2xl">페이지를 찾을 수 없습니다.</h1>
       <Link href={"/"}>
         <Button className="mt-4" onClick={() => router.push("/")}>
           <span>홈으로 돌아가기</span>
         </Button>
       </Link>
-    </div>
+    </main>
   );
 }
