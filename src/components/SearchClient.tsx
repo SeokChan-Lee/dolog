@@ -61,7 +61,7 @@ export default function SearchClient() {
       <SearchInput keyword={keyword} setKeyword={setKeyword} />
       {!hasQuery ? null : isLoading ? (
         <div className="w-full flex  justify-center">
-          <Spinner />
+          <Spinner className="w-10"/>
         </div>
       ) : isError ? (
         <p className="text-red-400 mt-5 text-center md:text-xl text-lg">

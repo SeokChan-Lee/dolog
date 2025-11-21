@@ -59,7 +59,7 @@ export default function PostList() {
   if (isLoading) {
     return (
       <div className="max-w-3xl mx-auto py-40 flex justify-center">
-        <Spinner />
+        <Spinner className="w-10"/>
       </div>
     );
   }
@@ -136,7 +136,7 @@ export default function PostList() {
           ref={loadMoreRef}
           className="h-10 flex justify-center items-center"
         >
-          {isFetchingNextPage && <Spinner className="mt-10" />}
+          {isFetchingNextPage && <Spinner className="mt-10 w-10" />}
         </div>
       )}
     </div>
